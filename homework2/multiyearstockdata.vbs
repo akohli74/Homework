@@ -61,7 +61,7 @@ Sub StatsTaker(ByVal ws_name As String)
         current_ticker_date_raw = ActiveWorkbook.Worksheets(ws_name).Cells(i, 2).Value
         current_ticker_date = CDate(Left(current_ticker_date_raw, 4) & "-" & Mid(current_ticker_date_raw, 5, 2) & "-" & Right(current_ticker_date_raw, 2))
         
-        If current_ticker_date = CDate("31 Dec 2015") Then
+        If current_ticker_date = CDate("30 Dec " + ws_name) Then
             current_ticker_closing_price = ActiveWorkbook.Worksheets(ws_name).Cells(i, 6).Value
             current_yearly_change = current_ticker_closing_price - current_ticker_opening_price
             ActiveWorkbook.Worksheets(ws_name).Cells(ticker_count, 11).Value = current_yearly_change
@@ -76,10 +76,11 @@ Sub StatsTaker(ByVal ws_name As String)
     Next i
 End Sub
 
+'Challenge
 Sub PopulateSheets()
     Dim ws As Worksheet
     For Each ws In ThisWorkbook.Worksheets
-        VolumeCombiner (ws.Name)
+       VolumeCombiner (ws.Name)
         StatsTaker (ws.Name)
     Next
     
